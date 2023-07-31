@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AkunController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\GateController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\KoordinatController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\SetupController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -23,13 +25,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/'           , [DashboardController  ::class, 'index' ])->name('dashboard'        );
-Route::get('/akun'       , [AkunController       ::class, 'index' ])->name('pages.akun'       );
-Route::get('/departement', [DepartementController::class, 'index' ])->name('pages.departement');
-Route::get('/jabatan'    , [JabatanController    ::class, 'index' ])->name('pages.jabatan'    );
-Route::get('/koordinat'  , [KoordinatController  ::class, 'index' ])->name('pages.koordinat'  );
-Route::get('/setup'      , [SetupController      ::class, 'index' ])->name('pages.setup'      );
-Route::get('/gate'       , [GateController       ::class, 'index' ])->name('pages.gate'       );
-Route::get('/user'       , [UserController       ::class, 'index' ])->name('pages.user'       );
-Route::get('/log'        , [LogController        ::class, 'index' ])->name('pages.log'        );
-Route::get('/kehadiran'  , [KehadiranController  ::class, 'index' ])->name('pages.kehadiran'  );
+Route::get('/'           , [DashboardController  ::class, 'index' ])->middleware(['auth'                         ])->name('pages.dashboard'  );
+Route::get('/user'       , [UserController       ::class, 'index' ])->middleware(['auth', 'role:superadmin|admin'])->name('pages.user'       );
+Route::get('/departement', [DepartementController::class, 'index' ])->middleware(['auth', 'role:superadmin|admin'])->name('pages.departement');
+Route::get('/jabatan'    , [JabatanController    ::class, 'index' ])->middleware(['auth', 'role:superadmin|admin'])->name('pages.jabatan'    );
+Route::get('/koordinat'  , [KoordinatController  ::class, 'index' ])->middleware(['auth', 'role:superadmin|admin'])->name('pages.koordinat'  );
+Route::get('/setup'      , [SetupController      ::class, 'index' ])->middleware(['auth', 'role:superadmin|admin'])->name('pages.setup'      );
+Route::get('/gate'       , [GateController       ::class, 'index' ])->middleware(['auth', 'role:superadmin|admin'])->name('pages.gate'       );
+Route::get('/pegawai'    , [PegawaiController    ::class, 'index' ])->middleware(['auth', 'role:superadmin|admin'])->name('pages.pegawai'    );
+Route::get('/log'        , [LogController        ::class, 'index' ])->middleware(['auth', 'role:superadmin|admin'])->name('pages.log'        );
+Route::get('/kehadiran'  , [KehadiranController  ::class, 'index' ])->middleware(['auth', 'role:superadmin|admin'])->name('pages.kehadiran'  );
+
+Route::get ('/loginview'    , [AuthController ::class, 'index' ])->name('login'         );
+Route::post('/loginprocess' , [AuthController ::class, 'login' ])->name('login-process' );
+Route::get('/logout'        , [AuthController ::class, 'logout' ])->middleware(['auth'])->name('logout');
