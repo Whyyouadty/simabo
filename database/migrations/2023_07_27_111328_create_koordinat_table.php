@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gate', function (Blueprint $table) {
+        Schema::create('koordinat', function (Blueprint $table) {
             $table->id();
-            $table->string('no_sesi');
-            $table->time('start');
-            $table->time('end');
+            $table->string('titik_lintang');
+            $table->string('titik_bujur');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gate');
+        Schema::dropIfExists('koordinat');
     }
 };

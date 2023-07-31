@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kehadiran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('user');
+            $table->foreignId('pegawai_id')->references('id')->on('pegawai');
             $table->date('tanggal');
             $table->time('jam_masuk');
             $table->time('jam_keluar');

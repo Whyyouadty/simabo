@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('tanggal');
             $table->string('waktu');
             $table->foreignId('koordinat_id')->references('id')->on('koordinat');
-            $table->foreignId('user_id')->references('id')->on('user');
+            $table->foreignId('pegawai_id')->references('id')->on('pegawai');
             $table->timestamps();
         });
     }
