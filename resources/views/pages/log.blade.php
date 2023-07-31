@@ -1,4 +1,4 @@
-@extends('layout.Dashboard')
+@extends('layout.Base')
 @section('content')
 <div class="col-xl-12">
     <div class="card">
@@ -36,7 +36,7 @@
                             <td style="width: 10%">{{ $item->tanggal }}</td>
                             <td style="width: 10%">{{ $item->waktu }}</td>
                             <td style="width: 10%">{{ $item->koordinat->titik_lintang }}:{{ $item->koordinat->titik_bujur }}</td>
-                            <td style="width: 10%">{{ $item->user->nama }}</td>
+                            <td style="width: 10%">{{ $item->pegawai->nama }}</td>
                             <td style="width: 10%">
                                 
                                 <button id="editItem" class="btn btn-sm btn-info" 
@@ -91,10 +91,10 @@
                             <span class="text-danger error-msg small" id="nama-alert"></span>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label">User</label><br>
-                            <select name="user_id" id="user_id" class="form-select" required>
+                            <label class="form-label">Pegawai</label><br>
+                            <select name="pegawai_id" id="pegawai_id" class="form-select" required>
                                 <option value="" selected disabled>--pilih--</option>
-                                @foreach ($data['user'] as $d)
+                                @foreach ($data['pegawai'] as $d)
                                     <option value="{{$d->id}}">{{$d->nama}}</option>
                                 @endforeach
                             </select>
