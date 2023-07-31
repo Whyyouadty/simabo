@@ -1,9 +1,9 @@
-@extends('layout.Dashboard')
+@extends('layout.Base')
 @section('content')
 <div class="col-xl-12">
     <div class="card">
         <div class="card-header">
-            <h4 class="mt--5" style="float: left">Data Akun</h4>
+            <h4 class="mt--5" style="float: left">Data Pegawai</h4>
                     <button type="button"
                             id="createData"
                             data-toggle="modal"
@@ -19,9 +19,16 @@
                     <thead>
                         <tr>
                             <th>NO</th>
-                            <th>Username</th>
-                            <th>Password</th>
-                            <th>Level</th>
+                            <th>User</th>
+                            <th>Nama</th>
+                            <th>NIDN</th>
+                            <th>Departement</th>
+                            <th>Jabatan</th>
+                            <th>TTL</th>
+                            <th>Alamat</th>
+                            <th>Agama</th>
+                            <th>JK</th>
+                            <th>No Hp</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -29,13 +36,20 @@
                         @php
                             $no = 1;
                         @endphp
-                        @foreach ($data as $item)
+                        @foreach ($data['pegawai'] as $item)
                         <tr>
                             <td style="width: 10%">{{$no++}}</td>
-                            <td style="width: 15%">{{ $item->username }}</td>
-                            <td style="width: 15%">{{ $item->password }}</td>
-                            <td style="width: 15%">{{ $item->level }}</td>
-                            <td style="width: 20%">
+                            <td style="width: 10%">{{ $item->user->username }}</td>
+                            <td style="width: 10%">{{ $item->nama }}</td>
+                            <td style="width: 10%">{{ $item->nidn }}</td>
+                            <td style="width: 10%">{{ $item->departement->nama_departement }}</td>
+                            <td style="width: 10%">{{ $item->jabatan->nama_jabatan }}</td>
+                            <td style="width: 10%">{{ $item->ttl }}</td>
+                            <td style="width: 10%">{{ $item->alamat }}</td>
+                            <td style="width: 10%">{{ $item->agama }}</td>
+                            <td style="width: 10%">{{ $item->jk }}</td>
+                            <td style="width: 10%">{{ $item->no_hp }}</td>
+                            <td style="width: 10%">
                                 
                                 <button id="editItem" class="btn btn-sm btn-info" 
                                         data-id="{{$item->id}}">
@@ -60,7 +74,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalheader">Akun</h5>
+                <h5 class="modal-title" id="modalheader">Gate</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <form id="formData" onsubmit="return false">
@@ -68,17 +82,83 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="hidden" name="id" id="dataId">
-                        <label>Username</label>
-                        <input id="username" class="form-control" name="username" type="text" placeholder="Username" required>
-                        <label>Password</label>
-                        <input id="password" class="form-control" name="password" type="text" placeholder="Password" required>
-                        <label>Level</label>
-                        <select name="level" id="level" class="form-select">
-                            <option value="" selected disabled>--pilih--</option>
-                            <option value="Super admin">Super admin</option>
-                            <option value="Admin">Admin</option>
-                            <option value="User">User</option>
-                        </select>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">User</label><br>
+                            <select name="user_id" id="user_id" class="form-select" required>
+                                <option value="" selected disabled>--pilih--</option>
+                                @foreach ($data['user'] as $d)
+                                    <option value="{{$d->id}}">{{$d->username}}</option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger error-msg small" id="nama-alert"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">Nama</label>
+                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required>
+                            <span class="text-danger error-msg small" id="nama-alert"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">NIDN</label>
+                            <input type="text" class="form-control" name="nidn" id="nidn" placeholder="Nidn" required>
+                            <span class="text-danger error-msg small" id="nama-alert"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">Departement</label><br>
+                            <select name="departement_id" id="departement_id" class="form-select" required>
+                                <option value="" selected disabled>--pilih--</option>
+                                @foreach ($data['departement'] as $d)
+                                    <option value="{{$d->id}}">{{$d->nama_departement}}</option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger error-msg small" id="nama-alert"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">Jabatan</label><br>
+                            <select name="jabatan_id" id="jabatan_id" class="form-select" required>
+                                <option value="" selected disabled>--pilih--</option>
+                                @foreach ($data['jabatan'] as $d)
+                                    <option value="{{$d->id}}">{{$d->nama_jabatan}}</option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger error-msg small" id="nama-alert"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">TTL</label>
+                            <input type="text" class="form-control" name="ttl" id="ttl" placeholder="Tempat tanggal lahir" required>
+                            <span class="text-danger error-msg small" id="nama-alert"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">Alamat</label>
+                            <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Alamat" required>
+                            <span class="text-danger error-msg small" id="nama-alert"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">Agama</label><br>
+                            <select name="agama" id="agama" class="form-select" required>
+                                <option value="" selected disabled>--pilih--</option>
+                                <option value="Islam">Islam</option>
+                                <option value="Kristen">Kristen</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Buddha">Buddha</option>
+                                <option value="Konghucu">Konghucu</option>
+                            </select>
+                            <span class="text-danger error-msg small" id="nama-alert"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">JK</label><br>
+                            <select name="jk" id="jk" class="form-select" required>
+                                <option value="" selected disabled>--pilih--</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                            <span class="text-danger error-msg small" id="nama-alert"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">No Hp</label>
+                            <input type="text" class="form-control" name="no_hp" id="no_hp" placeholder="No Hp" required>
+                            <span class="text-danger error-msg small" id="nama-alert"></span>
+                        </div>
+                        
                     </div>
                     <span class="text-danger small" id="nama-alert"></span>
                 </div>
@@ -118,14 +198,21 @@
 
         $(document).on('click', '#editItem', function () {
             var _id = $(this).data('id');
-            $.get(`${baseUrl}/api/w1/akun/` + _id, function (res) {
+            $.get(`${baseUrl}/api/w1/pegawai/` + _id, function (res) {
                 $('.modal-title' ).html ("Formulir Edit Data" );
                 $('#btn-simpan'  ).val  ("edit-user"          );
                 $('#nama-alert'  ).html ('                   ');
                 $('#modal-data'  ).modal('show'               );
-                $('#username'    ).val  (res.data.username);
-                $('#password'    ).val  (res.data.password);
-                $('#level'       ).val  (res.data.level);
+                $('#user_id'       ).val  (res.data.user_id);
+                $('#nama'          ).val  (res.data.nama);
+                $('#nidn'          ).val  (res.data.nidn);
+                $('#departement_id').val  (res.data.departement_id);
+                $('#jabatan_id'    ).val  (res.data.jabatan_id);
+                $('#ttl'           ).val  (res.data.ttl);
+                $('#alamat'        ).val  (res.data.alamat);
+                $('#agama'         ).val  (res.data.agama);
+                $('#jk'            ).val  (res.data.jk);
+                $('#no_hp'         ).val  (res.data.no_hp);
                 $('#dataId'      ).val  (res.data.id          );
             })
         });
@@ -141,11 +228,11 @@
 
             if (dataId == '') {
                 typePost = "POST"
-                url = `${baseUrl}/api/w1/akun`
+                url = `${baseUrl}/api/w1/pegawai`
                 console.log('post');
             } else {
                 typePost = "PUT"
-                url = `${baseUrl}/api/w1/akun/${dataId}`
+                url = `${baseUrl}/api/w1/pegawai/${dataId}`
                 console.log('put');
             }
 
@@ -178,7 +265,7 @@
                         let data = result.responseJSON
                         let errorRes = data.errors;
                         if (errorRes.length >= 1) {
-                            $('#nama-alert').html(errorRes.data.username);
+                            $('#nama-alert').html(errorRes.data.no_sesi);
                         }
                     } else {
                         let msg = 'Sedang pemeliharaan server'
@@ -190,7 +277,7 @@
 
         $(document).on('click', '#btn-hapus', function() {
             let _id = $(this).data('id');
-            let url = `${baseUrl}/api/w1/akun/` + _id;
+            let url = `${baseUrl}/api/w1/pegawai/` + _id;
             Swal.fire({
                 title             : 'Anda Yakin?',
                 text              : "Data ini mungkin terhubung ke tabel yang lain!",

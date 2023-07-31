@@ -1,4 +1,4 @@
-@extends('layout.Dashboard')
+@extends('layout.Base')
 @section('content')
 <div class="col-xl-12">
     <div class="card">
@@ -32,11 +32,11 @@
                         @endphp
                         @foreach ($data['log'] as $item)
                         <tr>
-                            <td style="width: 10%">{{ $no++}}</td>
+                            <td style="width: 5%">{{ $no++}}</td>
                             <td style="width: 10%">{{ $item->tanggal }}</td>
                             <td style="width: 10%">{{ $item->waktu }}</td>
                             <td style="width: 10%">{{ $item->koordinat->titik_lintang }}:{{ $item->koordinat->titik_bujur }}</td>
-                            <td style="width: 10%">{{ $item->user->nama }}</td>
+                            <td style="width: 10%">{{ $item->pegawai->nama }}</td>
                             <td style="width: 10%">
                                 
                                 <button id="editItem" class="btn btn-sm btn-info" 
@@ -92,9 +92,9 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label">User</label><br>
-                            <select name="user_id" id="user_id" class="form-select" required>
+                            <select name="pegawai_id" id="pegawai_id" class="form-select" required>
                                 <option value="" selected disabled>--pilih--</option>
-                                @foreach ($data['user'] as $d)
+                                @foreach ($data['pegawai'] as $d)
                                     <option value="{{$d->id}}">{{$d->nama}}</option>
                                 @endforeach
                             </select>
@@ -148,7 +148,7 @@
                 $('#tanggal'       ).val  (res.data.tanggal);
                 $('#waktu'         ).val  (res.data.waktu);
                 $('#koordinat_id'  ).val  (res.data.koordinat_id);
-                $('#user_id'       ).val  (res.data.user_id);
+                $('#pegawai_id'    ).val  (res.data.pegawai_id);
                 $('#dataId'        ).val  (res.data.id          );
             })
         });
