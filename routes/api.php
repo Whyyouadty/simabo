@@ -7,6 +7,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\KoordinatController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\SetupController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('w1/akun')->controller(AkunController::class)->group(function () {
+Route::prefix('w1/user')->controller(UserController::class)->group(function () {
 	Route::get    ('/'     , 'index'  );
 	Route::get    ('/{id}' , 'getById');
 	Route::post   ('/'     , 'store'  );
@@ -71,7 +72,7 @@ Route::prefix('w1/gate')->controller(GateController::class)->group(function () {
 	Route::delete ('/{id}' , 'delete' );
 });
 
-Route::prefix('w1/user')->controller(UserController::class)->group(function () {
+Route::prefix('w1/pegawai')->controller(PegawaiController::class)->group(function () {
 	Route::get    ('/'     , 'index'  );
 	Route::get    ('/{id}' , 'getById');
 	Route::post   ('/'     , 'store'  );
