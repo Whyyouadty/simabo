@@ -13,16 +13,9 @@ return new class extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('akun_id')->references('id')->on('akun');
-            $table->string('nama');
-            $table->string('nidn');
-            $table->foreignId('departement_id')->references('id')->on('departement');
-            $table->foreignId('jabatan_id')->references('id')->on('jabatan');
-            $table->string('ttl');
-            $table->string('alamat');
-            $table->string('agama');
-            $table->string('jk');
-            $table->string('no_hp');
+            $table->string('username');
+            $table->string('password');
+            $table->string('level');
             $table->timestamps();
         });
     }

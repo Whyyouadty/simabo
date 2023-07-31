@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('gate', function (Blueprint $table) {
             $table->id();
             $table->string('no_sesi');
-            $table->time('start');
-            $table->time('end');
+            $table->string('start');
+            $table->string('end');
             $table->timestamps();
         });
     }
