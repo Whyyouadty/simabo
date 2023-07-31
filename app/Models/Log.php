@@ -14,7 +14,7 @@ class Log extends Model
         'tanggal',
         'waktu',
         'koordinat_id',
-        'user_id',
+        'pegawai_id',
         'created_at',
         'updated_at'
     ];
@@ -24,16 +24,16 @@ class Log extends Model
         return $this->belongsTo(Koordinat::class, 'koordinat_id');
     }
 
-    public function user()
+    public function pegawai()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Pegawai::class, 'pegawai_id');
     }
 
     public function scopejoinList($query)
     {
         return $query
             ->leftJoin('koordinat as model_a', 'log.koordinat_id', '=', 'model_a.id')
-            ->leftJoin('user as model_b', 'log.user_id', '=', 'model_b.id')
+            ->leftJoin('pegawai as model_b', 'log.pegawai_id', '=', 'model_b.id')
             ->select(
                 'log.id',
                 'log.tanggal',
