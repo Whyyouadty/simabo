@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gate', function (Blueprint $table) {
+        Schema::create('departement', function (Blueprint $table) {
             $table->id();
-            $table->string('no_sesi');
-            $table->time('start');
-            $table->time('end');
+            $table->string('nama_departement');
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gate');
+        Schema::dropIfExists('departement');
     }
 };
