@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Akun;
-use App\Models\Departement;
-use App\Models\Jabatan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,12 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $data =  array(
-            'akun' => Akun::all(),
-            'departement' => Departement::all(),
-            'jabatan' => Jabatan::all(),
-            'user' => User::with('akun','departement','jabatan')->get(),
-        );
+        $data =  User::all();
         return view('pages.user', ['data' => $data]);
     }
 
@@ -27,17 +19,10 @@ class UserController extends Controller
        try {
         $date = Carbon::now();
         $data = array(
-            'akun_id'        => $request->       akun_id,
-            'nama'           => $request->          nama,
-            'nidn'           => $request->          nidn,
-            'departement_id' => $request->departement_id,
-            'jabatan_id'     => $request->    jabatan_id,
-            'ttl'            => $request->           ttl,
-            'alamat'         => $request->        alamat,
-            'agama'          => $request->         agama,
-            'jk'             => $request->            jk,
-            'no_hp'          => $request->         no_hp,
-            'created_at'     => $date,
+            'username'   => $request->username,
+            'password'   => $request->password,
+            'level'      => $request->level,
+            'created_at' => $date,
         );
         $data = User::create($data);
         $result = [
@@ -86,16 +71,9 @@ class UserController extends Controller
 		try {
         $date = Carbon::now();
         $data = [
-            'akun_id'        => $request->       akun_id,
-            'nama'           => $request->          nama,
-            'nidn'           => $request->          nidn,
-            'departement_id' => $request->departement_id,
-            'jabatan_id'     => $request->    jabatan_id,
-            'ttl'            => $request->           ttl,
-            'alamat'         => $request->        alamat,
-            'agama'          => $request->         agama,
-            'jk'             => $request->            jk,
-            'no_hp'          => $request->         no_hp,
+            'username'   => $request->username,
+            'password'   => $request->password,
+            'level'      => $request->level,
             'updated_at' => $date,
         ];
         $data = User::where(['id' => $id])->update($data);
@@ -132,3 +110,4 @@ class UserController extends Controller
         return response()->json($result, $result['code']);
     }
 }
+
