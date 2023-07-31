@@ -11,7 +11,7 @@ class GateController extends Controller
     public function index()
     {
         $data =  Gate::all();
-        return view('pages.Gate', ['data' => $data]);
+        return view('pages.gate', ['data' => $data]);
     }
 
     public function store(Request $request)
