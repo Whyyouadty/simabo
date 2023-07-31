@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gate;
 use App\Models\Kehadiran;
+use App\Models\Pegawai;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,9 +14,9 @@ class KehadiranController extends Controller
     public function index()
     {
         $data =  array(
-            'user' => User::all(),
+            'pegawai' => Pegawai::all(),
             'gate' => Gate::all(),
-            'kehadiran' => Kehadiran::with('user','gate')->get(),
+            'kehadiran' => Kehadiran::with('pegawai','gate')->get(),
         );
         return view('pages.kehadiran', ['data' => $data]);
     }
@@ -25,7 +26,7 @@ class KehadiranController extends Controller
        try {
         $date = Carbon::now();
         $data = array(
-            'user_id'    => $request->user_id,
+            'pegawai_id'    => $request->pegawai_id,
             'tanggal'    => $request->tanggal,
             'jam_masuk'  => $request->jam_masuk,
             'jam_keluar' => $request->jam_keluar,
@@ -81,7 +82,7 @@ class KehadiranController extends Controller
 		try {
         $date = Carbon::now();
         $data = [
-            'user_id'    => $request->user_id,
+            'pegawai_id'    => $request->pegawai_id,
             'tanggal'    => $request->tanggal,
             'jam_masuk'  => $request->jam_masuk,
             'jam_keluar' => $request->jam_keluar,

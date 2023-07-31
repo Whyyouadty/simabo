@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Akun;
+use App\Models\Departement;
+use App\Models\Jabatan;
+use App\Models\Pegawai;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class AkunController extends Controller
+class PegawaiController extends Controller
 {
     public function index()
     {
-        $data =  Akun::all();
-        return view('pages.akun', ['data' => $data]);
+        $data =  array(
+            'user' => User::all(),
+            'departement' => Departement::all(),
+            'jabatan' => Jabatan::all(),
+            'pegawai' => Pegawai::with('user','departement','jabatan')->get(),
+        );
+        return view('pages.pegawai', ['data' => $data]);
     }
 
     public function store(Request $request)
@@ -19,12 +27,19 @@ class AkunController extends Controller
        try {
         $date = Carbon::now();
         $data = array(
-            'username'   => $request->username,
-            'password'   => $request->password,
-            'level'      => $request->level,
-            'created_at' => $date,
+            'user_id'=>$request->user_id,
+            'nama'=>$request->nama,
+            'nidn'=>$request->nidn,
+            'departement_id'=>$request->departement_id,
+            'jabatan_id'=>$request->jabatan_id,
+            'ttl'=>$request->ttl,
+            'alamat'=>$request->alamat,
+            'agama'=>$request->agama,
+            'jk'=>$request->jk,
+            'no_hp'=>$request->no_hp,
+            'created_at'=>$date,
         );
-        $data = Akun::create($data);
+        $data = Pegawai::create($data);
         $result = [
             'message' => 'success',
             'data' => $data,
@@ -43,7 +58,7 @@ class AkunController extends Controller
     public function getById($id)
     {
 		try {
-            $data = Akun::whereId($id)->first();
+            $data = Pegawai::whereId($id)->first();
 
             if ($data) {
                 $result = [
@@ -71,12 +86,19 @@ class AkunController extends Controller
 		try {
         $date = Carbon::now();
         $data = [
-            'username'   => $request->username,
-            'password'   => $request->password,
-            'level'      => $request->level,
+            'user_id'        => $request->       user_id,
+            'nama'           => $request->          nama,
+            'nidn'           => $request->          nidn,
+            'departement_id' => $request->departement_id,
+            'jabatan_id'     => $request->    jabatan_id,
+            'ttl'            => $request->           ttl,
+            'alamat'         => $request->        alamat,
+            'agama'          => $request->         agama,
+            'jk'             => $request->            jk,
+            'no_hp'          => $request->         no_hp,
             'updated_at' => $date,
         ];
-        $data = Akun::where(['id' => $id])->update($data);
+        $data = Pegawai::where(['id' => $id])->update($data);
         $result = [
             'message' => 'success',
             'data' => $data,
@@ -94,7 +116,7 @@ class AkunController extends Controller
     public function delete($id)
     {
         try {
-            $data =  Akun::find($id);
+            $data =  Pegawai::find($id);
             $data->delete();
             $result = [
                 'message' => 'success',

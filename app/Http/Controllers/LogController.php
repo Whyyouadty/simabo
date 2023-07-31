@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Koordinat;
 use App\Models\Log;
-use App\Models\User;
+use App\Models\Pegawai;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -15,8 +15,8 @@ class LogController extends Controller
         
         $data =  array(
             'koordinat' => Koordinat::all(),
-            'user' => User::all(),
-            'log' => Log::with('koordinat','user')->get(),
+            'pegawai' => Pegawai::all(),
+            'log' => Log::with('koordinat','pegawai')->get(),
         );
         return view('pages.log', ['data' => $data]);
     }
@@ -29,7 +29,7 @@ class LogController extends Controller
             'tanggal' => $request->tanggal,
             'waktu' => $request->waktu,
             'koordinat_id' => $request->koordinat_id,
-            'user_id' => $request->user_id,
+            'pegawai_id' => $request->pegawai_id,
             'created_at' => $date,
         );
         $data = Log::create($data);
@@ -82,7 +82,7 @@ class LogController extends Controller
             'tanggal' => $request->tanggal,
             'waktu' => $request->waktu,
             'koordinat_id' => $request->koordinat_id,
-            'user_id' => $request->user_id,
+            'pegawai_id' => $request->pegawai_id,
             'updated_at' => $date,
         ];
         $data = Log::where(['id' => $id])->update($data);
