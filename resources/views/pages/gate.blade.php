@@ -1,4 +1,4 @@
-@extends('layout.Dashboard')
+@extends('layout.Base')
 @section('content')
 <div class="col-xl-12">
     <div class="card">
@@ -72,7 +72,7 @@
                         <input id="no_sesi" class="form-control" name="no_sesi" type="number" placeholder="Sesi" required>
                         <label>Start</label>
                         <input id="start" class="form-control" name="start" type="time" placeholder="Start" required>
-                        <label>Nama Jabatan</label>
+                        <label>End</label>
                         <input id="end" class="form-control" name="end" type="time" placeholder="End" required>
                     </div>
                     <span class="text-danger small" id="nama-alert"></span>

@@ -1,4 +1,4 @@
-@extends('layout.Dashboard')
+@extends('layout.Base')
 @section('content')
 <div class="col-xl-12">
     <div class="card">
@@ -36,7 +36,7 @@
                         @foreach ($data['kehadiran'] as $item)
                         <tr>
                             <td style="width: 10%">{{$no++}}</td>
-                            <td style="width: 10%">{{ $item->user->nama }}</td>
+                            <td style="width: 10%">{{ $item->pegawai->nama }}</td>
                             <td style="width: 10%">{{ $item->tanggal }}</td>
                             <td style="width: 10%">{{ $item->jam_masuk }}</td>
                             <td style="width: 10%">{{ $item->jam_keluar }}</td>
@@ -78,9 +78,9 @@
                         <input type="hidden" name="id" id="dataId">
                         <div class="col-12 col-md-6">
                             <label class="form-label">User</label><br>
-                            <select name="user_id" id="user_id" class="form-select" required>
+                            <select name="pegawai_id" id="pegawai_id" class="form-select" required>
                                 <option value="" selected disabled>--pilih--</option>
-                                @foreach ($data['user'] as $d)
+                                @foreach ($data['pegawai'] as $d)
                                     <option value="{{$d->id}}">{{$d->nama}}</option>
                                 @endforeach
                             </select>
@@ -93,12 +93,12 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label">Jam masuk</label>
-                            <input type="time" class="form-control" name="jam_masuk" id="jam_masuk" placeholder="Jam masuk" required>
+                            <input type="time" class="form-control" name="jam_masuk" id="jam_masuk" placeholder="Jam masuk">
                             <span class="text-danger error-msg small" id="nama-alert"></span>
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label">Jam keluar</label>
-                            <input type="time" class="form-control" name="jam_keluar" id="jam_keluar" placeholder="Jam keluar" required>
+                            <input type="time" class="form-control" name="jam_keluar" id="jam_keluar" placeholder="Jam keluar">
                             <span class="text-danger error-msg small" id="nama-alert"></span>
                         </div>
                         <div class="col-12 col-md-6">
@@ -106,18 +106,18 @@
                             <select name="status" id="status" class="form-select" required>
                                 <option value="" selected disabled>--pilih--</option>
                                 <option value="Masuk">Masuk</option>
-                                <option value="Tidak masuk">Tidak masuk</option>
+                                <option value="Tidak Masuk">Tidak Masuk</option>
                             </select>
                             <span class="text-danger error-msg small" id="nama-alert"></span>
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label">Keterangan</label>
-                            <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan" required>
+                            <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan">
                             <span class="text-danger error-msg small" id="nama-alert"></span>
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label">Gate</label><br>
-                            <select name="gate_id" id="gate_id" class="form-select" required>
+                            <select name="gate_id" id="gate_id" class="form-select">
                                 <option value="" selected disabled>--pilih--</option>
                                 @foreach ($data['gate'] as $d)
                                     <option value="{{$d->id}}">{{$d->no_sesi}}</option>
@@ -169,7 +169,7 @@
                 $('#btn-simpan'    ).val  ("edit-user"          );
                 $('#nama-alert'    ).html ('                   ');
                 $('#modal-data'    ).modal('show'               );
-                $('#user_id'       ).val  (res.data.user_id);
+                $('#pegawai_id'       ).val  (res.data.pegawai_id);
                 $('#tanggal'         ).val  (res.data.tanggal);
                 $('#jam_masuk'  ).val  (res.data.jam_masuk);
                 $('#jam_keluar'       ).val  (res.data.jam_keluar);
